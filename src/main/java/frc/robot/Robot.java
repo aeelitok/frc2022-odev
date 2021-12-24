@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
@@ -28,6 +29,7 @@ public class Robot extends TimedRobot {
   //Intake - Create a motor controller and a pneumatic solenoid
   VictorSP intakeMotor = new VictorSP(3);
   Solenoid intakePneumatic = new Solenoid(0); 
+  VictorSP climberMotor = new VictorSP(4);
 
     /**
    * This method is run when the robot is first started up and should be
@@ -39,6 +41,7 @@ public class Robot extends TimedRobot {
     SendableRegistry.add(drive, "drive");
     SendableRegistry.add(intakeMotor, "intakeMotor");
     SendableRegistry.add(intakePneumatic, "intakePneumatic");
+    SendableRegistry.add(climberMotor, "climberMotor");
   }
 
   /**
@@ -68,6 +71,19 @@ public class Robot extends TimedRobot {
       intakeMotor.set(-1.0);
     } else{
       intakeMotor.stopMotor();
+
+
+
+
+
+
+      if(controller.getAButton() == true){
+        climberMotor.set(1.0);
+      } else if(controller.getBButton() == true){
+        climberMotor.set(-1.0);
+      } else{
+        climberMotor.stopMotor();
+      }
     }
   }
 }
